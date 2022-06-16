@@ -1,0 +1,1 @@
+{"dotenv": ".env", "wallets": {"from_key": "${PRIVATE_KEY}", "from_key_two": "${PRIVATE_KEY_TWO}"}, "networks": {"rinkeby": {"verify": true}, "ropsten": {"verify": true}, "mainnet-fork-dev": {"verify": false}, "development": {"verify": true}, "ganache-local": {"verify": false}}}

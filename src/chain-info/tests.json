@@ -1,0 +1,15 @@
+{
+  "contracts": {
+    "ProductTrade": "8fce6980821468b96cfbfcc9097c85898dc1d087"
+  },
+  "tests": {
+    "tests/test_product_trade.py": {
+      "coverage": false,
+      "isolated": false,
+      "results": "F",
+      "sha1": "c1444dc39405bb6a936802e611e1ff1601bd8b6e",
+      "txhash": []
+    }
+  },
+  "tx": {}
+}

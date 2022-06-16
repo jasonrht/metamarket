@@ -3,14 +3,23 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { DAppProvider, Config, Kovan, Rinkeby, Ropsten } from '@usedapp/core'
+import { BrowserRouter } from 'react-router-dom'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const config: Config = {
+  networks: [Kovan, Rinkeby, Ropsten]
+}
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <DAppProvider config={config}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </DAppProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
