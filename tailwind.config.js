@@ -5,6 +5,9 @@ module.exports = {
     extend: {
       fontFamily: {
         'rubik': ['Rubik', 'sans-serif']
+      },
+      backgroundImage: {
+        'aj1-coll': "url('/src/assets/jordan-collection.jpg')"
       }
     },
   },

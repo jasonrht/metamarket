@@ -1,0 +1,4 @@
+{
+    "main_server": "https://mysterious-retreat-43191.herokuapp.com/",
+    "test_server": "http://localhost:3001/"
+}

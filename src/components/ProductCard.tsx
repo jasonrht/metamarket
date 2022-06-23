@@ -1,17 +1,49 @@
 import { useProductTxn } from '../hooks/useProductTxn'
 import { useCoingeckoPrice } from '@usedapp/coingecko'
+import { useEthers } from '@usedapp/core'
+import axios from 'axios'
+import keys from '../assets/keys.json'
+import { useState, useEffect } from 'react'
+import LoadingGif from '../assets/loading.gif'
+import { Contract, ethers, utils } from 'ethers'
+import ProductTradeAbi from '../chain-info/contracts/ProductTrade.json'
+import keys2 from '../hooks/keys.json'
 
-export const ProductCard = ({ productName, productPrice, productSize, imgSource }
-    : { productName: string, productPrice: number, productSize: number, imgSource: string }) => {
+export const ProductCard = ({ contractAddress, productName, productPrice, productSize, imgSource }
+    : { contractAddress: string, productName: string, productPrice: number, productSize: number, imgSource: string }) => {
 
+    const { account } = useEthers()
     const imageSource = require(`../assets/${imgSource}`)
     const ethPrice = useCoingeckoPrice('ethereum', 'usd')
+    const [buying, setBuying] = useState(false)
+    const [contractStatus, setContractStatus] = useState(0)
 
-    const { txn, txnState } = useProductTxn()
-    const handlePurchase = () => {
-        return txn((productPrice / parseFloat(String(ethPrice))).toString())
+    const { abi } = ProductTradeAbi
+    const productTradeInterface = new utils.Interface(abi)
+    const provider = new ethers.providers.InfuraProvider('ropsten')
+    const wallet = ethers.Wallet.fromMnemonic(keys2.wallet_secret)
+    const signer = wallet.connect(provider)
+    const contract = new Contract(contractAddress, productTradeInterface, signer)
+
+    const { txn, txnState, getStatus } = useProductTxn(contractAddress)
+    const handlePurchase = async () => {
+        setBuying(true)
+        await axios.post(keys.main_server.concat('change-buyer'), {
+            name: productName,
+            buyer: account
+        })
+        setBuying(false)
+        return txn((productPrice / parseFloat(String(ethPrice))).toString(), String(account))
     }
 
+    useEffect(() => {
+        const getState = async () => {
+            const status = await contract.txn_state()
+            console.log(status)
+            setContractStatus(status)
+        }
+        getState()
+    }, [buying])
 
     return (
         <div className='grid grid-cols-2 w-[15rem] h-[22rem] p-4 bg-amber-300 rounded-md shadow-lg border-4 border-amber-800'>
@@ -40,8 +72,10 @@ export const ProductCard = ({ productName, productPrice, productSize, imgSource 
             </table>
             <button
                 onClick={() => handlePurchase()}
-                className='col-span-2 h-12 bg-amber-600 mb-0 mt-auto rounded-full hover:italic'>
-                BUY NOW
+                className={`${contractStatus !== 0 ? 'italic bg-red-500 ' : 'bg-amber-600 '}col-span-2 h-12 mb-0 mt-auto border-2 border-amber-800 rounded-full hover:italic`}
+                disabled={contractStatus !== 0}>
+                {contractStatus === 0 && !buying ? 'BUY NOW' : 'SOLD'}
+                {buying ? <img src={LoadingGif} alt='loading-gif' className='h-10 w-10'></img> : ''}
             </button>
         </div>
     )

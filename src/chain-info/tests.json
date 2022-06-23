@@ -1,13 +1,13 @@
 {
   "contracts": {
-    "ProductTrade": "8fce6980821468b96cfbfcc9097c85898dc1d087"
+    "ProductTrade": "4673f5ef48714ca0e709ba5c6ed8cfdc7dafb287"
   },
   "tests": {
     "tests/test_product_trade.py": {
       "coverage": false,
       "isolated": false,
-      "results": "F",
-      "sha1": "c1444dc39405bb6a936802e611e1ff1601bd8b6e",
+      "results": ".",
+      "sha1": "2c9116e8e1faf5158c6bc9480d9ffa7b4a67845e",
       "txhash": []
     }
   },
