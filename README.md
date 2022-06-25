@@ -1,46 +1,15 @@
-# Getting Started with Create React App
+# MetaMarket
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the MetaMarket! This is the first project for which I have written my own Solidity smart contract from scratch. At the MetaMartket, a user can connect to their MetaMask account and put items up for sale. A potential buyer can then purchase the available product on the website.
 
-## Available Scripts
+The idea for this project came from the nature of Solidity to remove middlemen from certain business processes. 
 
-In the project directory, you can run:
+## The buying and selling process
 
-### `npm start`
+When a seller puts an item up for sale, a new smart contract is initiated which acts as a vault. A buyer can then send ether to the contract to purchase the item, the sent ether is now locked inside of the smart contract. As the seller sees that the right amount of ether is sent to the contract, he ships the product to the buyer. The seller cannot withdraw the smart contract funds until the buyer approves the reception of the product. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+If the buyer decides that he is not content with the product and wants to send it back, they can start the return process. The buyer cannot withdraw his ether until the seller approves the correct return of the product.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Pitfalls
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This transaction process is NOT waterproof. Bad actors can finds ways to exploit it. However, I created this project just to gain some experience in writing smart contracts and integrating them within a user interface..
